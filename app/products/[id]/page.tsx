@@ -4,6 +4,9 @@ import { ChevronLeftIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import ProductImage from "./_components/product-image";
+import { calculateProductTotalPrice, formatCurrency } from "@/app/_helpers/price";
+import DiscountBadge from "@/app/_components/discount-badge";
+import ProductDetails from "./_components/product-details";
 
 interface ProductPageProps {
     params : {
@@ -19,7 +22,20 @@ const ProductPage = async ({params :{id}}:ProductPageProps) => {
         include:{
             restaurant: true
         }
-    })
+    });
+    const juices = await db.product.findMany({
+        where: {
+          category: {
+            name: "Sucos",
+          },
+          restaurant: {
+            id: product?.restaurant.id,
+          },
+        },
+        include: {
+          restaurant: true,
+        },
+      });
 
     if(!product){
         return notFound();
@@ -29,10 +45,7 @@ const ProductPage = async ({params :{id}}:ProductPageProps) => {
             <ProductImage product={product}/>
             <div className="p-5">
                     <div className="flex items-center gap-[0.375rem]">
-                        <div className="relative h-6 w-6">
-                            <Image src={product.restaurant.imageUrl} width={32} alt={product.restaurant.name} height={32} className="rounded-full object-cover" />
-                        </div>
-                        <span>{product.restaurant.name}</span>
+                       <ProductDetails product={product} complementaryProducts={juices} />
                     </div>
                     
                 </div>
