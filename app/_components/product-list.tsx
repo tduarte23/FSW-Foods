@@ -3,7 +3,7 @@ import { db } from "../_lib/prisma";
 import ProductItem from "./product-item";
 
 interface ProductItemProps{
-    product: Prisma.ProductGetPayload<{
+    products: Prisma.ProductGetPayload<{
         include : {
             restaurant:{
                 select:{
