@@ -18,8 +18,10 @@ const ProductList = async ({products}:ProductItemProps) => {
 
     
     return ( 
-        <div className="flex overflow-x-scroll [&::-webkit-scrollbar]:hidden pt-6 px-5 gap-4">
-            {(await products).map(i => <ProductItem key={i.id} product={i} />)}</div>
+        <div 
+        className="flex overflow-x-scroll [&::-webkit-scrollbar]:hidden pt-6 px-5 gap-4">
+            {(await products).map(i => <ProductItem key={i.id} product={i} />)}
+        </div>
      );
 }
  
