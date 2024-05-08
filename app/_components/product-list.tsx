@@ -3,15 +3,7 @@ import { db } from "../_lib/prisma";
 import ProductItem from "./product-item";
 
 interface ProductItemProps{
-    products: Prisma.ProductGetPayload<{
-        include : {
-            restaurant:{
-                select:{
-                    name : true
-                }
-            }
-            }     
-    }>
+    products: any[]
 }
 
 const ProductList = ({products}:ProductItemProps) => {
